@@ -28,7 +28,7 @@ app.use('/', indexRoute);
 
 app.use('/favicon.ico', express.static(path.join(__dirname, 'favicon.ico')));
 app.use('/openapi', express.static(path.join(__dirname, 'swagger.yml')));
-app.use('/metadata', express.static(path.join(__dirname, '..', 'service.metadata.json')));
+app.use('/metadata', express.static(path.join(__dirname, "..", 'service.metadata.json')));
 
 let server = httpServer.createServer(app);
 const appPort = '5010';
