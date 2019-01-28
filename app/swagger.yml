@@ -1,0 +1,127 @@
+swagger: '2.0'
+
+info:
+  version: 1.0.0
+  title: Rust Item API
+
+  /readiness:
+    get:
+      description:
+        The /readiness endpoint indicates whether your application is able to serve its function or not, and will be used to determine whether it can receive traffic or not. This may be a temporary or permanent condition. Please see the separate guidance on this topic.
+      produces:
+            - text/plain
+            responses:
+              200:
+                description: The service is initialised and is ready to serve traffic.
+              503:
+                description: The service is not yet initialised and is unable to serve traffic.
+        /liveness:
+          get:
+            description: |
+              The /liveness endpoint indicates the ultimate health of the service during execution. It is binary; either the service is running or it is in an unrecoverable state, requiring a restart before it will work again. Please see the separate guidance on this topic.
+            produces:
+            - text/plain
+            responses:
+              200:
+                description: The service is able to serve traffic.
+              503:
+                description: The service is not currently able to serve traffic.
+        /openapi:
+          get:
+            description: |
+              This should return the openapi document for your service in the requested format.
+            produces:
+            - text/yml
+            responses:
+              200:
+                description: OK
+                schema:
+                  type: object
+        /version:
+          get:
+            description: |
+              Returns the service name and version.
+            produces:
+            - application/json
+            responses:
+              200:
+                description: OK
+                schema:
+                  $ref: '#/definitions/versionMetadata'
+        /metadata:
+          get:
+            description: |
+              Returns the `service.metadata.json` file for this service.
+            produces:
+            - application/json
+            responses:
+              200:
+                description: OK
+                schema:
+                  $ref: '#/definitions/serviceMetadata'
+      definitions:
+        versionMetadata:
+          type: object
+          properties:
+            serviceName:
+              type: string
+            version:
+              type: string
+              description: |
+                The version of the service, experessed as semver (e.g. `1.2.3-alpha.something+meta-data`).
+              pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
+        dependency:
+          type: object
+          properties:
+            name:
+              description: The service name.
+              type: string
+            role:
+              description: The role of the service.
+              type: string
+              enum: [ api, consumer, ui ]
+            protocol:
+              description: The protocol the service uses to communicate with.
+              type: string
+              enum: [ http, rabbitmq, kafka, mongodb ]
+        serviceMetadata:
+          description: Describes the details about a service so they can be manipulated programatically.
+          type: object
+          properties:
+            name:
+              description: The service name.
+              type: string
+            owner:
+              description: The email address of the service owner.
+              type: string
+            vision:
+              description: This is a sentence, or at maximum a short paragraph, that describes the compelling idea or values or future state for a particular service.
+              type: string
+            repo:
+              description: The github repository URL that contains the code for the service.
+              type: string
+            runbook:
+              description: The URI to the runbook for this service.
+              type: string
+            role:
+              description: The role of the service.
+              type: string
+              enum: [ api, consumer, ui  ]
+            protocol:
+              description: The protocol the service uses to communicate with.
+              type: string
+              enum: [ http, rabbitmq, kafka, mongodb ]
+            dependencies:
+              description: Services the service depends on.
+              type: object
+              properties:
+                critical:
+                  description: Critical dependencies which the service has to rely on otherwise it will not be able to function at all.
+                  type: array
+                  items:
+                    $ref: '#/definitions/dependency'
+                non-critical:
+                  description: Non-critical dependencies which the service has to rely on. If these are not healthy the service can continue its function.
+                  type: array
+                  items:
+                    $ref: '#/definitions/dependency'
