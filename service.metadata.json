@@ -1,0 +1,15 @@
+{
+  "name": "RustRestAPI",
+  "owner": "Sam Greaves",
+  "ownerEmail": "samgreaves0@gmail.com",
+  "repo": "https://github.com/sgreaves1/RustRestAPI",
+  "role": "api",
+  "protocol": "http",
+  "dependencies" : {
+    "critical":[
+      {
+
+      }
+    ]
+  }
+}
