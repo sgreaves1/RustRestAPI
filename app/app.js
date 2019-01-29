@@ -9,9 +9,6 @@ const path = require('path');
 // Routes
 const indexRoute = require('./routes/index');
 
-const EventEmitter = require('events').EventEmitter;
-global.eventEmitter = new EventEmitter();
-
 let app = express();
 
 if (app.get('env') === 'development') {
