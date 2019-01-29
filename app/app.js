@@ -8,6 +8,7 @@ const path = require('path');
 
 // Routes
 const indexRoute = require('./routes/index');
+const durabilityRoute = require('./routes/durability');
 
 let app = express();
 
@@ -22,6 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', indexRoute);
+app.use('/durability', durabilityRoute);
+
 
 app.use('/favicon.ico', express.static(path.join(__dirname, 'favicon.ico')));
 app.use('/openapi', express.static(path.join(__dirname, 'swagger.yml')));
