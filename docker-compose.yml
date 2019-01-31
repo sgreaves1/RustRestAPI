@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  app:
+  rust-rest-api:
     image: node:dubnium-alpine
     volumes:
       - ./:/app
@@ -11,4 +11,4 @@ services:
       NODE_ENV: development
     ports:
       - 5010:5010
-    command: npm start
+    command: ["npm", "test"]

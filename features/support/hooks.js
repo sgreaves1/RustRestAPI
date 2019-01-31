@@ -6,7 +6,7 @@ BeforeAll(function (callback) {
 });
 
 AfterAll(function () {
-
+    RustApi.close();
 });
 
 setDefaultTimeout(10000);

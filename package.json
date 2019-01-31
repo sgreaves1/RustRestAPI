@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app/app.js"
+    "start": "node app/app.js",
+    "test": "node node_modules/cucumber/bin/cucumber-js -f node_modules/cucumber-pretty/index.js features/*"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
