@@ -24,6 +24,8 @@ echo
 VERSION=`cat VERSION`
 CURDIR=`pwd`
 
+sudo service docker start
+
 docker run --rm \
        -t \
         -v "${CURDIR}:/app" \
