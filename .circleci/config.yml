@@ -5,4 +5,10 @@ jobs:
       - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
-      - run: ./build.sh
+      - run:
+        name: Start container and verify it is working
+        command: |
+          set -x
+          docker-compose up -d
+          docker run --network container:contacts \
+            appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/contacts/test
