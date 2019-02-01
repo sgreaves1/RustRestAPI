@@ -2,6 +2,8 @@
 
 exitcode=0
 
+echo "Entered the tests.sh script"
+
 docker-compose --project-name rustrestapitest up -d
 
 sleep 5
