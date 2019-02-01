@@ -6,9 +6,9 @@ jobs:
     steps:
       - checkout # check out the code in the project directory
       - run:
-        name: Start container and verify it is working
-        command: |
-          set -x
-          docker-compose up -d
-          docker run --network container:contacts \
-            appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/contacts/test
+          name: Start container and verify it is working
+          command: |
+            set -x
+            docker-compose up -d
+            docker run --network container:contacts \
+              appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/contacts/test
