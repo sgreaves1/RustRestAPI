@@ -2,6 +2,9 @@
 
 This application is used to obtain item information for the game Rust.
 
+Join the discord:
+https://discord.gg/qAjbAap
+
 ## Running
 
 ```
