@@ -8,3 +8,9 @@ jobs:
       - checkout
       - run: npm install
       - run: npm test
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - test
