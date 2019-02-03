@@ -4,6 +4,13 @@ const {Then} = require('cucumber');
 Then(/the body should contain the cost$/, function (callback) {
     expect(JSON.parse(this.response.body).item).to.equal('sheetmetaldoor');
     expect(JSON.parse(this.response.body).attackItem).to.equal('explosivebullets');
-    expect(JSON.parse(this.response.body).cost).to.equal(64);
+    expect(JSON.parse(this.response.body).cost).to.equal(63);
+    callback();
+});
+
+Then(/the body should contain a list of items that destroy the sheet metal door item$/, function (callback) {
+    expect(JSON.parse(this.response.body).item).to.equal('sheetmetaldoor');
+    console.log(this.response.body);
+    expect(JSON.parse(this.response.body).durability.length).to.equal(2);
     callback();
 });
