@@ -1,16 +1,18 @@
 version: 2
 jobs:
-  test:
+  build:
     docker: # run the steps with Docker
       - image: circleci/node:11.6.0 # ...with this image as the primary container; this is where all `steps` will run
-
-    steps: # a collection of executable commands
+    steps:
       - checkout
       - run: npm install
+  test:
+    steps: # a collection of executable commands
       - run: npm test
 
 workflows:
   version: 2
   workflow:
     jobs:
+    - build
     - test
