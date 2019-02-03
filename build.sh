@@ -33,5 +33,3 @@ docker run --rm \
         "apk update; apk upgrade; apk add git; apk add openssh; npm install"
 
 docker volume prune -f
-
-sudo chown -R go:go .
