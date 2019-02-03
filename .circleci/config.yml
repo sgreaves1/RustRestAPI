@@ -58,8 +58,7 @@ workflows:
     - package:
         branches:
           filter:
-            only:
-              - master
+            only: - master
         type: approval
         requires:
           - build
