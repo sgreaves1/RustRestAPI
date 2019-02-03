@@ -5,6 +5,9 @@ jobs:
       - image: circleci/node:11.6.0 # ...with this image as the primary container; this is where all `steps` will run
 
     steps: # a collection of executable commands
+      - setup_remote_docker:
+          docker_layer_caching: true
+
       - checkout
       - run: npm install
       - run: ./build.sh
