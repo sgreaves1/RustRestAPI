@@ -6,6 +6,7 @@ jobs:
 
     steps: # a collection of executable commands
       - checkout
+      - run: sudo apt-get install npm
       - run: npm install
       - run: ./build.sh
 
