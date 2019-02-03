@@ -8,6 +8,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm test
+      - run: sudo service docker start
       - run: docker images
       - run: docker build . --tag samgreaves/rustrestapi
       - run: docker images
