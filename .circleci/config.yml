@@ -57,11 +57,18 @@ workflows:
     - test:
         requires:
           - build
+    - approve:
+        type: approval
+        filters:
+          branches:
+            only:
+              - master
+        requires:
+          - test
     - package:
         filters:
           branches:
             only:
               - master
-        type: approval
         requires:
-          - test
+          - approve
