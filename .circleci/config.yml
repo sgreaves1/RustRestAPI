@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker: # run the steps with Docker
-      - image: circleci/node:11.6.0 # ...with this image as the primary container; this is where all `steps` will run
+      - image: docker:17.05.0-ce-git # ...with this image as the primary container; this is where all `steps` will run
 
     steps: # a collection of executable commands
       - checkout
@@ -11,7 +11,7 @@ jobs:
 
   test:
     docker: # run the steps with Docker
-      - image: circleci/node:11.6.0 # ...with this image as the primary container; this is where all `steps` will run
+      - image: docker:17.05.0-ce-git # ...with this image as the primary container; this is where all `steps` will run
 
     steps: # a collection of executable commands
       - checkout
