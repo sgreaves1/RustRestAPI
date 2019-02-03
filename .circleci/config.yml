@@ -54,7 +54,9 @@ workflows:
   workflow:
     jobs:
     - build
-    - test
+    - test:
+        requires:
+          - build
     - package:
         filters:
           branches:
@@ -62,5 +64,4 @@ workflows:
               - master
         type: approval
         requires:
-          - build
           - test
