@@ -7,7 +7,6 @@ jobs:
     steps: # a collection of executable commands
       - setup_remote_docker:
           docker_layer_caching: true
-
       - checkout
       - run: npm install
       - run: ./build.sh
@@ -17,13 +16,26 @@ jobs:
       - image: circleci/node:11.6.0 # ...with this image as the primary container; this is where all `steps` will run
 
     steps: # a collection of executable commands
+      - setup_remote_docker:
+                docker_layer_caching: true
       - checkout
       - run: npm install
       - run: npm test
-      - run: sudo service docker start
-      - run: docker images
-      - run: docker build . --tag samgreaves/rustrestapi
-      - run: docker images
+
+  package:
+    docker: # run the steps with Docker
+      - image: circleci/node:11.6.0 # ...with this image as the primary container; this is where all `steps` will run
+
+    steps: # a collection of executable commands
+      - setup_remote_docker:
+                docker_layer_caching: true
+      - checkout
+      - run: npm install
+      - run: |
+        TAG=0.1.$CIRCLE_BUILD_NUM
+        docker build -t   $DOCKER_REPO/$DOCKER_IMAGENAME:$TAG .
+        docker login -u $DOCKER_USER -p $DOCKER_PASS
+        docker push $DOCKER_REPO/$DOCKER_IMAGENAME:$TAG
 
 workflows:
   version: 2
@@ -31,3 +43,8 @@ workflows:
     jobs:
     - build
     - test
+    - package:
+      type: approval
+      requires:
+        - build
+        - test
