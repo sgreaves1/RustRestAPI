@@ -8,13 +8,12 @@ jobs:
       - checkout
       - run: npm install
       - run: npm test
-  build:
-    steps:
+      - run: docker images
       - run: docker build . --tag samgreaves/rustrestapi
+      - run: docker images
 
 workflows:
   version: 2
   workflow:
     jobs:
     - test
-    - build
