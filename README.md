@@ -2,6 +2,8 @@
 
 This application is used to obtain item information for the game Rust.
 
+Join the slack: https://join.slack.com/t/samsprogramming/shared_invite/enQtNTQxODMxNTMyMzQzLWU2NjlkN2E2NTY5NGU4NDE3YzQwNDNhMDI1YjQ1MGFhODU0YzVjM2I4ZWIzZDA4ZjhmODU0ZTljMTQwMzA4MTQ
+
 Join the discord:
 https://discord.gg/qAjbAap
 
