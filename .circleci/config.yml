@@ -38,6 +38,8 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push $DOCKER_REPO/$DOCKER_IMAGENAME:$TAG
 
+      - run: npm test
+
 workflows:
   version: 2
   workflow:

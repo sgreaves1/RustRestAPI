@@ -1,10 +1,10 @@
 const expect = require('chai').expect;
 const {Then} = require('cucumber');
 
-Then(/the body should contain the cost$/, function (callback) {
+Then(/the body should contain the cost of (\d+)$/, function (cost, callback) {
     expect(JSON.parse(this.response.body).item).to.equal('sheetmetaldoor');
     expect(JSON.parse(this.response.body).attackItem).to.equal('explosivebullets');
-    expect(JSON.parse(this.response.body).cost).to.equal(63);
+    expect(JSON.parse(this.response.body).cost).to.equal(cost);
     callback();
 });
 
