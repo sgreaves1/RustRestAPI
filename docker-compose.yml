@@ -7,8 +7,21 @@ services:
     volumes:
       - ./:/app
     working_dir: /app
+    links:
+      - mongodb
     environment:
       NODE_ENV: development
+      MONGODB_URL: "mongodb://mongodb:27017"
     ports:
       - 5010:5010
+    networks:
+      - rustnetwork
     command: ["npm", "test"]
+  mongodb:
+    image: mongo:3.6.6
+    networks:
+          - rustnetwork
+
+networks:
+  rustnetwork:
+    driver: bridge
