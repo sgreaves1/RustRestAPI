@@ -3,7 +3,7 @@ Feature: Rust Items
   I want to query the db
   So that I can return Item Information
 
-  Scenario: Return all the durability information for the sheet metal door item
+  Scenario: Return all the durability information for the item
     When I go to the /durability/sheetmetaldoor endpoint
     Then it should return OK
     And the body should contain a list of items that destroy the sheet metal door item
@@ -11,4 +11,4 @@ Feature: Rust Items
   Scenario: Return amount of explosive ammo to destroy sheet metal door
     When I go to the /durability/sheetmetaldoor/explosivebullets endpoint
     Then it should return OK
-    And the body should contain the cost
+    And the body should contain the cost of 63

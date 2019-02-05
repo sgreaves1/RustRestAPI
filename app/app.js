@@ -5,10 +5,22 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const httpServer = require('http');
 const path = require('path');
+const nconf = require('nconf');
 
 // Routes
 const indexRoute = require('./routes/index');
 const durabilityRoute = require('./routes/durability');
+
+// Env vars
+nconf.argv({
+    'MONGODB_URL': {
+        alias: 'mongodb-url',
+        describe: 'URL for mongo database',
+        demand: false
+    }
+}).env().defaults({
+    'MONGODB_URL' : 'mongodb://localhost:27017/rust'
+});
 
 let app = express();
 

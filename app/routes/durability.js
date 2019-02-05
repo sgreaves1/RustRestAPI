@@ -5,27 +5,19 @@ const db = require('../helpers/db');
 
 router.get('/:itemName/', function (request, response) {
 
-    var name = request.params.itemName;
-    var item = db.getDurability(name);
-
-    console.log(item.name);
-
-    response.status(HttpStatus['OK']).json({
-        item: item.name,
-        durability:[
-            { name: 'explosiveBullets',
-              cost: 63 },
-            { name: 'timedMine',
-                cost: 1 }
-        ]
+    db.getItem(request.params.itemName, function (item) {
+        response.status(HttpStatus['OK']).json(item);
     });
 });
 
 router.get('/:itemName/:attackItem', function (request, response) {
-    response.status(HttpStatus['OK']).json({
-        item: request.params.itemName,
-        attackItem: request.params.attackItem,
-        cost: 63
+
+    db.getItem(request.params.itemName, function (item) {
+
+        var name = item.name;
+        var attackItem = item.durability.find(x => x.name == 'explosivebullets');
+
+        response.status(HttpStatus['OK']).json({name:name, attackItem: attackItem.name, cost:attackItem.cost});
     });
 });
 

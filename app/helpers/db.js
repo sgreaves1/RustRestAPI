@@ -1,15 +1,25 @@
 const mongoose = require('mongoose');
 const Item = require('../models/item');
+const nconf = require('nconf');
 
 function connect() {
-    mongoose.connect('mongodb://m001-student:' + process.env.MONGO_ATLAS_PW + '@sandbox-shard-00-00-uwspm.mongodb.net:27017,sandbox-shard-00-01-uwspm.mongodb.net:27017,sandbox-shard-00-02-uwspm.mongodb.net:27017/test?ssl=true&replicaSet=Sandbox-shard-0&authSource=admin&retryWrites=true');
+    mongoose.connect(nconf.get('MONGODB_URL'), {useNewUrlParser: true});
 };
 
-function getDurability(itemToFind) {
+function close() {
+    mongoose.connection.close();
+};
 
+function getItem(itemToFind, callback) {
     connect();
-
-    return Item.find({name: itemToFind});
+    Item.findOne({name: itemToFind})
+        .exec()
+        .then(doc => {
+            close();
+            callback(doc);
+        })
+        .catch(err => console.log(err));
 }
 
-module.exports = {getDurability}
+
+module.exports = {getItem, close}
