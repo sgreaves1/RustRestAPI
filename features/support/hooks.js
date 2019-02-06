@@ -3,6 +3,7 @@ const RustApi = require('../../app/app');
 const db = require('../../app/helpers/db');
 
 BeforeAll(function (callback) {
+    db.connect();
     callback();
 });
 

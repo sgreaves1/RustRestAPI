@@ -11,15 +11,13 @@ function close() {
 };
 
 function getItem(itemToFind, callback) {
-    connect();
     Item.findOne({name: itemToFind})
         .exec()
         .then(doc => {
-            close();
             callback(doc);
         })
         .catch(err => console.log(err));
 }
 
 
-module.exports = {getItem, close}
+module.exports = {getItem, close, connect}

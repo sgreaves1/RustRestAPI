@@ -13,11 +13,11 @@ router.get('/:itemName/', function (request, response) {
 router.get('/:itemName/:attackItem', function (request, response) {
 
     db.getItem(request.params.itemName, function (item) {
-
         var name = item.name;
         var attackItem = item.durability.find(x => x.name == 'explosivebullets');
 
         response.status(HttpStatus['OK']).json({name:name, attackItem: attackItem.name, cost:attackItem.cost});
+
     });
 });
 
