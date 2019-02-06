@@ -14,6 +14,7 @@ jobs:
   test:
     docker: # run the steps with Docker
       - image: circleci/node:11.6.0 # ...with this image as the primary container; this is where all `steps` will run
+      - image: mongo:3.4.4
 
     steps: # a collection of executable commands
       - setup_remote_docker:
@@ -37,8 +38,6 @@ jobs:
           docker build -t   $DOCKER_REPO/$DOCKER_IMAGENAME:$TAG .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push $DOCKER_REPO/$DOCKER_IMAGENAME:$TAG
-
-      - run: npm test
 
 workflows:
   version: 2
