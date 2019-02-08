@@ -31,10 +31,4 @@ router.get('/:itemName/:attackItem', function (request, response) {
 
 });
 
-router.use(function(error, request, response, next) {
-    if (error) {
-        response.status(500).send(error);
-    }
-});
-
 module.exports = router;
