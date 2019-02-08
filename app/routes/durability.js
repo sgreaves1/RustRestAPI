@@ -5,6 +5,8 @@ const db = require('../helpers/db');
 
 router.param('itemName', function (request, response, next, itemName) {
     try {
+        db.connect();
+
         db.getItem(itemName, function (item) {
             request.item = item;
             next();
@@ -17,7 +19,7 @@ router.param('itemName', function (request, response, next, itemName) {
 });
 
 router.get('/:itemName/', function (request, response) {
-    response.status(HttpStatus['OK']).json();
+    response.status(HttpStatus['OK']).json(request.item);
 });
 
 router.get('/:itemName/:attackItem', function (request, response) {
