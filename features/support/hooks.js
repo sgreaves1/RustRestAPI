@@ -3,29 +3,29 @@ const {BeforeAll, After, AfterAll, setDefaultTimeout} = require('cucumber');
 const RustApi = require('../../app/app');
 const db = require('../../app/helpers/db');
 
-BeforeAll(function (callback) {
+BeforeAll(async function () {
     db.connect();
-    clearDatabase();
-    callback();
+    await clearDatabase();
 });
 
-AfterAll(function () {
-    clearDatabase();
+AfterAll(async function () {
+    await clearDatabase();
     db.close();
     RustApi.close();
 });
 
-After(async function() {
-    await clearDatabase();
+After(function() {
+    clearDatabase();
 
     this.resetWorld();
+
 });
 
 setDefaultTimeout(10000);
 
-async function clearDatabase() {
+function clearDatabase() {
     try {
-        Item.remove();
+        return Item.deleteMany({});
     } catch (error) {
         console.log(`DB failed to clear. ${error}`);
     }

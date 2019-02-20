@@ -1,21 +1,14 @@
 const {Given} = require('cucumber');
 const Item = require('../../app/models/item');
 
-Given(/^The database has (\d+) durability fields for the sheet metal door$/, function(count) {
+Given(/^The database has (.+) durability field with a cost of (\d+) for the (.+) item$/, async function(attackItemName, attackCost, item) {
 
-        let itemToStore = new Item({
-            name: 'sheetmetaldoor',
-            durability: [{name:'explosivebullets', cost: 63}, {name:'timedexplosivecharge', cost:1}]
-        });
+    let query = { name: item};
+    let durabilityElement = {name: attackItemName, cost: attackCost};
+    let update = { $push: { durability: durabilityElement}}
+    let options = {multi:true, upsert: true, new: true, setDefaultsOnInsert: true, useFindAndModify: false};
 
-        itemToStore.save();
-});
-
-Given(/^The database has (.+) durability field with a cost of (\d+) for the (.+) item$/, function(attackItemName, attackCost, item) {
-    let itemToStore = new Item({
-        name: item,
-        durability: [{name:attackItemName, cost: attackCost}]
+    return await Item.findOneAndUpdate(query, update, options, function(err, num) {
+        console.log('here');
     });
-
-    itemToStore.save();
 });

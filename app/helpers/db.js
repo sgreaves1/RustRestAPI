@@ -17,7 +17,7 @@ function getItem(itemToFind, callback) {
             callback(doc);
         })
         .catch(err => console.log(err));
-}
+};
 
 
 module.exports = {getItem, close, connect}
